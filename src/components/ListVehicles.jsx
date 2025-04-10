@@ -1,4 +1,10 @@
+import { useState } from "react";
+
 export default function ListVehicles() {
+  const [vehicles, setVehicles] = useState(
+    JSON.parse(localStorage.getItem("vehicles")) || []
+  );
+
   return (
     <div className="list-vehicles">
       <h1>List of Vehicles</h1>
@@ -13,15 +19,17 @@ export default function ListVehicles() {
             <th>price</th>
           </tr>
         </thead>
-        
+
         <tbody>
-          <tr>
-            <td>tesla</td>
-            <td>Model S </td>
-            <td>Red</td>
-            <td>Tesla</td>
-            <td>$80,000</td>
-          </tr>
+          {vehicles.map((vehicle, index) => (
+            <tr key={index}>
+              <td>{vehicle.name}</td>
+              <td>{vehicle.model} </td>
+              <td>{vehicle.color}</td>
+              <td>{vehicle.brand}</td>
+              <td>{vehicle.price}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
