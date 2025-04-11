@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-export default function createListing() {
+export default function CreateListing() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [model, setModel] = useState("");
@@ -10,8 +10,8 @@ export default function createListing() {
   const [price, setPrice] = useState("");
 
   const onSubmitHandler = (event) => {
-    // prevent the default form submission
     event.preventDefault();
+
     const listingData = {
       name,
       model,
@@ -20,28 +20,30 @@ export default function createListing() {
       price,
     };
 
-    const storage = JSON.parse(localStorage.getItem("vehicles"));
+    const storedVehicles = localStorage.getItem("vehicles");
+    let vehicles = [];
 
-    if (Array.isArray(storage)) {
-      storage.push(listingData); // push the new vehicle to the vehicles array
-      localStorage.setItem("vehicles", JSON.stringify(storage)); // set the vehicles to local storage
-      navigate("/");
-    } else {
-      const vehicles = [];
-      vehicles.push(listingData); // push the new vehicle to the vehicles array
-      localStorage.setItem("vehicles", JSON.stringify(vehicles)); // set the vehicles to local storage
-      navigate("/");
+    if (storedVehicles) {
+      vehicles = JSON.parse(storedVehicles);
+      if (!Array.isArray(vehicles)) {
+        vehicles = [];
+      }
     }
+
+    vehicles.push(listingData);
+    localStorage.setItem("vehicles", JSON.stringify(vehicles));
+    navigate("/");
   };
+
   return (
     <div>
       <form onSubmit={onSubmitHandler}>
         <h1>Create a Listing</h1>
+
         <label htmlFor="name">Name:</label>
         <input
           type="text"
           id="name"
-          name="name"
           onChange={(e) => setName(e.target.value)}
           required
         />
@@ -50,7 +52,6 @@ export default function createListing() {
         <input
           type="text"
           id="model"
-          name="model"
           onChange={(e) => setModel(e.target.value)}
           required
         />
@@ -58,9 +59,8 @@ export default function createListing() {
         <label htmlFor="color">Color:</label>
         <input
           type="text"
-          onChange={(e) => setColor(e.target.value)}
           id="color"
-          name="color"
+          onChange={(e) => setColor(e.target.value)}
           required
         />
 
@@ -68,7 +68,6 @@ export default function createListing() {
         <input
           type="text"
           id="brand"
-          name="brand"
           onChange={(e) => setBrand(e.target.value)}
           required
         />
@@ -77,7 +76,6 @@ export default function createListing() {
         <input
           type="number"
           id="price"
-          name="price"
           onChange={(e) => setPrice(e.target.value)}
           required
         />
