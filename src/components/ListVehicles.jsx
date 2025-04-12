@@ -17,6 +17,7 @@ export default function ListVehicles() {
             <th>color</th>
             <th>brand</th>
             <th>price</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -28,6 +29,9 @@ export default function ListVehicles() {
               <td>{vehicle.color}</td>
               <td>{vehicle.brand}</td>
               <td>{vehicle.price}</td>
+              <td>
+                <button>sell</button>
+              </td>
             </tr>
           ))}
         </tbody>

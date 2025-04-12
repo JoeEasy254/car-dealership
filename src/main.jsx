@@ -5,6 +5,8 @@ import App from "./App.jsx";
 import ListBuyers from "./pages/ListBuyers.jsx";
 import VehicleSold from "./pages/vehicleSold.jsx";
 import CreateListing from "./pages/createListing.jsx";
+import TransferVehicle from "./pages/transferPage.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/create",
     element: <CreateListing />,
+  },
+  {
+    path: "/transfer",
+    element: <TransferVehicle />,
   },
 ]);
 
