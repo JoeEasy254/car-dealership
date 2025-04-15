@@ -24,6 +24,7 @@ const router = createBrowserRouter([
     path: "/create",
     element: <CreateListing />,
   },
+
   {
     path: "/transfer",
     element: <TransferVehicle />,

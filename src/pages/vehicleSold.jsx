@@ -1,4 +1,7 @@
 export default function VehicleSold() {
+  const [vehicles, setVehicles] = useState(
+    JSON.parse(localStorage.getItem("sold")) || []
+  );
   return (
     <div className="list-vehicles">
       <h1>List of Vehicles</h1>
@@ -6,21 +9,21 @@ export default function VehicleSold() {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>model</th>
-            <th>color</th>
-            <th>brand</th>
-            <th>price</th>
+            <th>Owner Name</th>
+            <th>Age</th>
+            <th>Contact</th>
+            <th>vehicle</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>tesla</td>
-            <td>Model S</td>
-            <td>Red</td>
-            <td>Tesla</td>
-            <td>$80,000</td>
-          </tr>
+          {vehicles.map((vehicle, index) => (
+            <tr key={index}>
+              <td>{vehicles.ownerName}</td>
+              <td>{vehicles.age}</td>
+              <td>{vehicle.contact}</td>
+              <td>{vehicle.vehicle}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import toast, { Toaster } from "react-hot-toast";
 export default function TransferVehicle() {
   const [selection, setSelection] = useState(
     JSON.parse(localStorage.getItem("vehicles")) || []
@@ -26,15 +26,39 @@ export default function TransferVehicle() {
     if (Array.isArray(vehicleSold) && vehicleSold.length > 0) {
       vehicleSold.push(transferData);
       localStorage.setItem("sold", JSON.stringify(vehicleSold));
+
+      toast.success("vehicle transferred successfully");
+
+      const storedVehicles = JSON.parse(localStorage.getItem("vehicles"));
+
+      if (Array.isArray(storedVehicles)) {
+        const updatedVehicle = storedVehicles.filter(
+          (vehicle) => vehicle.name !== selected
+        );
+
+        localStorage.setItem("vehicles", JSON.stringify(updatedVehicle));
+        toast.success("vehicle sold from dealership");
+      } else {
+        toast.success("vehicles dont exist");
+      }
     } else {
       const vehicles = [];
       vehicles.push(transferData);
 
       localStorage.setItem("sold", JSON.stringify(vehicles));
+      toast.success("vehicle transferred successfully");
+
+      const updatedVehicle = vehicles.filter(
+        (vehicle) => vehicle.name !== selected
+      );
+
+      localStorage.setItem("vehicles", JSON.stringify(updatedVehicle));
+      toast.success("vehicle sold from dealership");
     }
   };
   return (
     <div>
+      <Toaster />
       <form onSubmit={handleTransfer}>
         <label htmlFor="">New Owner name</label>
         <input type="text" onChange={(e) => setOwnerName(e.target.value)} />
